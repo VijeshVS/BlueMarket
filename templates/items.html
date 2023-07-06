@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ItemsPage
+{% endblock %}
+
+{% block homeactive %}
+      <li class="nav-item">
+        {% endblock %}
+
+{% block itemactive %}
+
+<li class="nav-item active">
+
+{% endblock %}
+
+{% block contents %}
+
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Item</th>
+      <th scope="col">ItemCode</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for item in items %}
+    <tr>
+      <th scope="row">{{loop.index}}</th>
+      <td>{{item.name}}</td>
+      <td>{{item.barcode}}</td>
+      <td>{{item.price}}$</td>
+      <td>
+        <button type="button" class="btn btn-success">Purchase</button>
+      </td>
+    </tr>
+   {% endfor %}
+  </tbody>
+</table>  
+
+{% endblock %}
