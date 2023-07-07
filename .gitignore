@@ -120,6 +120,8 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+.vscode/
+blue_market/
 .env
 .venv
 env/
