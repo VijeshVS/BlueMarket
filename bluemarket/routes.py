@@ -1,5 +1,5 @@
 from bluemarket import app
-from flask import render_template , redirect , url_for
+from flask import render_template , redirect , url_for , flash , get_flashed_messages
 from bluemarket.models import Item , User
 from bluemarket.forms import RegisterForm
 from bluemarket import db
@@ -36,5 +36,5 @@ def register_page():
 
     if form.errors != {}:
         for err_msg in form.errors.values():
-            print(err_msg)        
+            flash (f'There was an error while creating the user {err_msg}')      
     return render_template('register.html' , form=form)
