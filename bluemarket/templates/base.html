@@ -4,7 +4,7 @@
 
   <title>
     
-    // this sets the webpage title to....
+   
     {% block title %}
 
     {% endblock %}
@@ -16,7 +16,7 @@
 </head>
 <body>
 
-  //this starts the nav bar common for all html pages
+  <!-- this starts the nav bar common for all html pages -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -27,7 +27,7 @@
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 
 
-// this makes the hometext active (currently not)
+<!-- this makes the hometext active (currently not) -->
         {% block homeactive %}
       <li class="nav-item">
         {% endblock %}
@@ -36,7 +36,7 @@
       </li>
 
 
-// this makes the itemtext active (currently not)
+<!-- this makes the itemtext active (currently not) -->
       {% block itemactive %}
       <li class="nav-item">
         {% endblock %}
@@ -44,7 +44,7 @@
         <a class="nav-link" href="{{url_for('item_page')}}">Items</a>
       </li>
 
-// this makes the registertext active (currently not)
+<!-- this makes the registertext active (currently not) -->
       {% block registeractive %}
       <li class="nav-item">
         {% endblock %}
@@ -59,7 +59,7 @@
 </nav>
 
 
-// Style for body (one color for text and body)
+<!-- Style for body (one color for text and body) -->
 <style>
   body{
     background-color: #2C3539;
@@ -68,11 +68,11 @@
 </style>
 
 
-//flash messages for errors are shown with this
+<!-- flash messages for errors are shown with this -->
 
 {% with messages = get_flashed_messages(with_categories = true) %}
   {% if messages %}
-    {% for message in messages %}
+    {% for category, message in messages %}
       <p>{{ message }}</p>
     {% endfor %}
   {% endif %}
