@@ -18,6 +18,19 @@ def item_page():
     return render_template("items.html", items=items)
 
 
+
+'''
+here we are creating the instance of register form (mentioned in forms.py)
+and creating the User instance on Submit
+
+Post and Get --->
+Post request is something when we click on submit the data is sent as post
+request to the server
+Get request is retreiving data means when we visit a website its nothing but get request
+
+damn!! if no method request is specified it by default uses the GET method
+to retrieve the info from the html page 
+'''
 @app.route('/register' , methods=['POST','GET'])
 def register_page():
     form = RegisterForm()
@@ -31,10 +44,13 @@ def register_page():
         db.session.commit()
         return redirect(url_for('item_page'))
 
-    #checking if the there is errors or not . Form errors are simple stored in dictionaries and we need to iterate 
-    # through to get the value
+    '''
+    checking if the there is errors or not .
+    Form errors are simple stored in dictionaries and we need to iterate 
+    through to get the value
+    '''
 
     if form.errors != {}:
         for err_msg in form.errors.values():
-            flash (f'There was an error while creating the user {err_msg}')      
+            flash (f'There was an error while creating the user {err_msg}' , category='danger')      
     return render_template('register.html' , form=form)

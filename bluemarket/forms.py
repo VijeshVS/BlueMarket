@@ -1,9 +1,27 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField , PasswordField , SubmitField
-from wtforms.validators import Length  , EqualTo , Email , DataRequired
-
+from wtforms.validators import Length  , EqualTo , Email , DataRequired , ValidationError
+from bluemarket.models import User
 
 class RegisterForm(FlaskForm):
+
+# so this flask form has a feature it finds the function starting with validate
+# and _fieldentry and it checks for validation
+
+# why username.data ?? becoz username_to_check is a object but we need to compare the username itself
+    def validate_username(self,username_to_check):
+        user = User.query.filter_by(username=username_to_check.data).first()
+        if user:
+            raise ValidationError("Username Already Exists!!")
+        
+    def validate_email_address(self,email_address_to_check):
+        email = User.query.filter_by(email_address=email_address_to_check.data).first()
+        if email:
+            raise ValidationError("Email Address Already Exists !! ")    
+
+
+# these are the ways to create the forms 
+# any no of validators can be added in the list
     username = StringField(label = 'User Name:' , validators=[Length(min=4,max=30) , DataRequired()])
     email_address = StringField(label='Email Address:' , validators=[Email() , DataRequired()])
     password1 = PasswordField(label = 'Password:' , validators=[Length(min=6) , DataRequired()])
