@@ -24,7 +24,7 @@
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 
         {% block homeactive %}
-      <li class="nav-item active">
+      <li class="nav-item">
         {% endblock %}
 
         <a class="nav-link" href="{{url_for('home_page')}}"> Home <span class="sr-only"></span></a>
@@ -36,17 +36,30 @@
 
         <a class="nav-link" href="{{url_for('item_page')}}">Items</a>
       </li>
+
+      {% block registeractive %}
+      <li class="nav-item">
+        {% endblock %}
+
+        <a class="nav-link" href="{{url_for('register_page')}}">Register</a>
+      </li>
+
+
     </ul>
     
   </div>
 </nav>
 
+
+
 <style>
   body{
-    background-color: #EBF4FA;
+    background-color: #2C3539;
     color: white;
   }
 </style>
+
+
 {% block contents %}
 
 {% endblock %}

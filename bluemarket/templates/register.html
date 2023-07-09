@@ -1,0 +1,63 @@
+ {% extends 'base.html' %}
+
+{% block title %}
+Register Page
+{% endblock %}
+
+{% block registeractive %}
+      <li class="nav-item active">
+        {% endblock %}
+
+{% block contents %}
+
+<div class="container">
+
+    <form method="POST" class="form-register" style="color:white;">
+
+        {{ form.hidden_tag() }}
+
+        <center>
+        <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/letter-b-logo-design-template-bd51cd692b1ae2d1232e5e3ae629b8ee_screen.jpg?ts=1639751661" 
+        class="img_logo">
+    </center>
+
+        <h1 class="h3 mb-3 font-weight-normal" >
+            Please create your account
+        </h1>
+       
+
+    {{ form.username.label() }}
+    {{ form.username(class="form-control", placeholder="User Name") }}
+
+    {{ form.email_address.label() }}
+    {{ form.email_address(class="form-control", placeholder="Email Address") }}
+
+    {{ form.password1.label() }}
+    {{ form.password1(class="form-control", placeholder="Password") }}
+
+    {{ form.password2.label() }}
+    {{ form.password2(class="form-control", placeholder="Confirm Password") }}
+
+    <br>
+
+    {{ form.submit(class='btn btn-lg btn-block btn-primary')}}
+
+    </form>
+</div>
+
+
+
+
+
+<style>
+    .img_logo{
+        width: 100px;
+        height: 100px;
+        border-radius: 100px;
+    }
+
+</style>
+
+
+{% endblock %}
+    
