@@ -44,14 +44,39 @@
         <a class="nav-link" href="{{url_for('item_page')}}">Items</a>
       </li>
 
+
+
+    {% if current_user.is_authenticated %}
+  
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link " style="margin-right: 10px;margin-left: 790px;color: lawngreen; font-weight:bold;">
+            <i class="fas fa-coins">{{ current_user.budget }} $</i>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link disabled" >Logged in as {{ current_user.username }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{url_for('logout_page')}}" >Logout</a>
+        </li>
+      </ul>
+   
+     {% else %}
 <!-- this makes the registertext active (currently not) -->
       {% block registeractive %}
       <li class="nav-item">
         {% endblock %}
-
-        <a class="nav-link " href="{{url_for('register_page')}}">Register</a>
+        <a class="nav-link " href="{{url_for('register_page')}}" style="margin-right: 10px;margin-left: 990px;">Register</a>
+      </li>
+      {% block loginactive %}
+      <li class="nav-item">
+        {% endblock %}
+        <a class="nav-link " href="{{url_for('login_page')}}">Login</a>
       </li>
 
+      {% endif %}
 
     </ul>
     
@@ -65,6 +90,12 @@
     background-color: #2C3539;
     color: white;
   }
+
+  #hello {
+    text-align: right;
+  }
+
+
 </style>
 
 

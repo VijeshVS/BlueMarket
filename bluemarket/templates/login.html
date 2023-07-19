@@ -1,12 +1,13 @@
- {% extends 'base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}
-Register Page
+   Login Page 
 {% endblock %}
 
-{% block registeractive %}
+{% block loginactive %}
       <li class="nav-item active">
         {% endblock %}
+
 
 {% block contents %}
 
@@ -22,36 +23,27 @@ Register Page
     </center>
 
         <h1 class="h3 mb-3 font-weight-normal" >
-            Please create your account
+            Please login to your account
         </h1>
        
-
     {{ form.username.label() }}
     {{ form.username(class="form-control", placeholder="User Name") }}
 
-    {{ form.email_address.label() }}
-    {{ form.email_address(class="form-control", placeholder="Email Address") }}
 
-    {{ form.password1.label() }}
-    {{ form.password1(class="form-control", placeholder="Password") }}
-
-    {{ form.password2.label() }}
-    {{ form.password2(class="form-control", placeholder="Confirm Password") }}
-
-    <br>
-    <h6>Already have an account ?</h6>
-   <a href="{{url_for('login_page')}}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Login</a>
+    {{ form.password.label() }}
+    {{ form.password(class="form-control", placeholder="Password") }}
+   <br>
+   <h6>Don't have an account ?</h6>
+   <a href="{{url_for('register_page')}}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Register</a>
     <br>
     <br>
+   
 
     {{ form.submit(class='btn btn-lg btn-block btn-primary')}}
 
     </form>
+
 </div>
-
-
-
-
 
 <style>
     .img_logo{
@@ -62,6 +54,4 @@ Register Page
 
 </style>
 
-
 {% endblock %}
-    

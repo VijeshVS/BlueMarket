@@ -1,8 +1,9 @@
 from bluemarket import app
 from flask import render_template , redirect , url_for , flash , get_flashed_messages
 from bluemarket.models import Item , User
-from bluemarket.forms import RegisterForm
+from bluemarket.forms import RegisterForm , LoginForm
 from bluemarket import db
+from flask_login import login_user , logout_user , login_required
 
 # importing the required libaries ----------->
 
@@ -12,6 +13,7 @@ def home_page():
 
 
 @app.route("/items")
+@login_required
 def item_page():
     items = Item.query.all() # retreiving all the objects from the Database from a table named Item and storing  
                              # it to a variable and passing all the objects to the items.html file
@@ -38,11 +40,16 @@ def register_page():
         user_to_create = User(
                               username =form.username.data,
                               email_address=form.email_address.data,
-                              password_hash=form.password1.data
-                              )
+                              password=form.password1.data
+                              ) 
         db.session.add(user_to_create)
         db.session.commit()
+
+        login_user(user_to_create)
+        flash(f'Account created successfully ! Now you are logged in as {user_to_create.username}', category='success')
         return redirect(url_for('item_page'))
+    
+
 
     '''
     checking if the there is errors or not .
@@ -54,3 +61,26 @@ def register_page():
         for err_msg in form.errors.values():
             flash (f'There was an error while creating the user {err_msg}' , category='danger')      
     return render_template('register.html' , form=form)
+
+
+@app.route('/login', methods = ['GET','POST'])
+
+def login_page():
+    form = LoginForm()
+    if form.validate_on_submit():
+        attempted_user = User.query.filter_by(username = form.username.data).first()
+        if attempted_user and attempted_user.check_password_correction(attempted_password=form.password.data):
+            login_user(attempted_user)
+            flash(f'Success! You are logged in as: {attempted_user.username}', category = 'success')
+            return redirect(url_for('item_page'))
+        else:
+            flash('Username or password is incorrect ! Please try again', category='danger')
+
+    return render_template('login.html',form=form)
+
+
+@app.route('/logout')
+def logout_page():
+    logout_user()
+    flash(f'Successfully logged out !', category = 'info')
+    return redirect(url_for('home_page'))
