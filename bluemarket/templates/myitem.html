@@ -5,7 +5,7 @@ ItemsPage
 {% endblock %}
 
 
-{% block itemactive %}
+{% block myitemactive %}
 <li class="nav-item active">
 {% endblock %}
 
@@ -16,8 +16,8 @@ ItemsPage
 <div class="container">
   <br>
   <center>
-  <h2>Available Items on the market</h2>
-  <p>Click on one of the Item to start buying</p>
+  <h2>My Items</h2>
+  <p>Click on one of the Item to start selling</p>
 </center>
   <br>
 <table class="table table-dark">
@@ -31,16 +31,16 @@ ItemsPage
   </thead>
   <tbody>
       {% for item in items %}
-      {% include 'includes/items_modals.html' %}
-
+      {% include 'includes/myitem_modals.html' %}
     <tr>
       <th scope="row">{{loop.index}}</th>
       <td>{{item.name}}</td>
       <td>{{item.barcode}}</td>
       <td>{{item.price}}$</td>
+
       <td>
         
-        <button type="button" class="btn btn-success"  data-toggle="modal" data-target="#Modal-PurchaseConfirm-{{ item.id }}" >Purchase</button>
+        <button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#Modal-SellConfirm-{{ item.id }}" >Sell Item</button>
       </td>
     </tr>
    {% endfor %}

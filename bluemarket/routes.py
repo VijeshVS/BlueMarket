@@ -1,9 +1,9 @@
 from bluemarket import app
-from flask import render_template , redirect , url_for , flash , get_flashed_messages
-from bluemarket.models import Item , User
-from bluemarket.forms import RegisterForm , LoginForm
+from flask import render_template , redirect , url_for , flash , get_flashed_messages , request
+from bluemarket.models import Item , User 
+from bluemarket.forms import RegisterForm , LoginForm , PurchaseItemForm , SellItemForm
 from bluemarket import db
-from flask_login import login_user , logout_user , login_required
+from flask_login import login_user , logout_user , login_required , current_user
 
 # importing the required libaries ----------->
 
@@ -12,12 +12,31 @@ def home_page():
     return render_template("index.html")
 
 
-@app.route("/items")
+@app.route("/items", methods = ['POST','GET'])
 @login_required
 def item_page():
-    items = Item.query.all() # retreiving all the objects from the Database from a table named Item and storing  
+
+    purchase_form = PurchaseItemForm()
+
+    if request.method == 'POST':
+        purchased_item = request.form.get('purchased_item')
+        p_item_object = Item.query.filter_by(name=purchased_item).first()
+
+        if current_user.buy_check(p_item_object):
+            if p_item_object:
+                p_item_object.onwer = current_user.id
+                current_user.budget -= p_item_object.price
+                flash(f"{purchased_item} is purchased successfully ! ", category='success')
+                db.session.commit()
+        else:
+            flash(f'You do not have enough credits to buy {purchased_item}' , category='danger')
+
+        return redirect(url_for('item_page'))
+
+    if request.method == 'GET':
+        items = Item.query.filter_by(onwer = None) # retreiving all the objects from the Database from a table named Item and storing  
                              # it to a variable and passing all the objects to the items.html file
-    return render_template("items.html", items=items)
+        return render_template("items.html", items=items,purchase_form=purchase_form)
 
 
 
@@ -84,3 +103,20 @@ def logout_page():
     logout_user()
     flash(f'Successfully logged out !', category = 'info')
     return redirect(url_for('home_page'))
+
+@app.route('/myitems', methods = ['GET','POST'])
+def myitem_page():
+    sellform = SellItemForm()
+    
+    if request.method == 'POST':
+        item_name = request.form.get('sell_item')
+        item_object = Item.query.filter_by(name = item_name).first()
+        current_user.budget += item_object.price
+        item_object.onwer = None
+        db.session.commit()
+        flash(f'{item_name} sold successfully for {item_object.price}$' , category='success')
+        return redirect(url_for('myitem_page'))
+
+    if request.method == 'GET':
+        items  = Item.query.filter_by(onwer = current_user.id)
+        return render_template('myitem.html' , items = items , sellform=sellform)
