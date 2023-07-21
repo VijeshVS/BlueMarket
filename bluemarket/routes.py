@@ -1,7 +1,7 @@
 from bluemarket import app
 from flask import render_template , redirect , url_for , flash , get_flashed_messages , request
-from bluemarket.models import Item , User 
-from bluemarket.forms import RegisterForm , LoginForm , PurchaseItemForm , SellItemForm
+from bluemarket.models import Item , User , CouponData
+from bluemarket.forms import RegisterForm , LoginForm , PurchaseItemForm , SellItemForm , RedeemCouponForm
 from bluemarket import db
 from flask_login import login_user , logout_user , login_required , current_user
 
@@ -104,8 +104,11 @@ def logout_page():
     flash(f'Successfully logged out !', category = 'info')
     return redirect(url_for('home_page'))
 
+
+
 @app.route('/myitems', methods = ['GET','POST'])
-def myitem_page():
+@login_required 
+def myitem_page():   
     sellform = SellItemForm()
     
     if request.method == 'POST':
@@ -120,3 +123,21 @@ def myitem_page():
     if request.method == 'GET':
         items  = Item.query.filter_by(onwer = current_user.id)
         return render_template('myitem.html' , items = items , sellform=sellform)
+    
+
+@app.route('/redeem_coupon', methods = ['POST','GET'])
+@login_required
+def redeem_coupon_page():
+    couponform = RedeemCouponForm()
+    if request.method == 'POST':
+        temp_coupon = CouponData.query.filter_by(code = couponform.coupon_code.data).first()
+        if temp_coupon:
+            current_user.budget += temp_coupon.money
+            db.session.delete(temp_coupon)
+            db.session.commit()
+            flash('Coupon redeemed successfully',category='success')
+            return redirect(url_for('item_page'))
+        else:
+            flash('Unfortunately, coupon is expired or invalid', category='danger')
+        
+    return render_template('redeem_coupon.html',couponform=couponform)

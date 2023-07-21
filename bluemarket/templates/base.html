@@ -52,17 +52,23 @@
       <li class="nav-item">
         {% endblock %}
 
-        {% if current_user.is_authenticated %}
 
         <a class="nav-link" href="{{url_for('myitem_page')}}"> My Items <span class="sr-only"></span></a>
       </li>
 
+      <a class="nav-link" href="{{url_for('redeem_coupon_page')}}"> Redeem Coupon <span class="sr-only"></span></a>
+      </li>
+
+
+
 
   
+      {% if current_user.is_authenticated %}
+
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link " style="margin-right: 10px;margin-left: 700px;color: lawngreen; font-weight:bold;">
-            <i class="fas fa-coins">{{ current_user.budget }} $</i>
+          <a class="nav-link " style="margin-right: 10px;margin-left: 550px;color: rgb(28, 235, 28); font-weight:bold;">
+            <i class="fas fa-coins">💰 {{ current_user.budget }} $</i>
           </a>
         </li>
 
@@ -79,7 +85,7 @@
       {% block registeractive %}
       <li class="nav-item">
         {% endblock %}
-        <a class="nav-link " href="{{url_for('register_page')}}" style="margin-right: 10px;margin-left: 920px;">Register</a>
+        <a class="nav-link " href="{{url_for('register_page')}}" style="margin-right: 10px;margin-left: 740px;">Register</a>
       </li>
       {% block loginactive %}
       <li class="nav-item">

@@ -38,4 +38,8 @@ class PurchaseItemForm(FlaskForm):
     submit = SubmitField(label= 'Purchase Item!')
 
 class SellItemForm(FlaskForm):
-    submit = SubmitField(label= 'Sell Item!')    
+    submit = SubmitField(label= 'Sell Item!') 
+
+class RedeemCouponForm(FlaskForm):
+    coupon_code = PasswordField(label='Coupon Code: ')
+    submit = SubmitField(label = 'Redeem')       

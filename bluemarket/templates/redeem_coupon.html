@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}
+   Login Page 
+{% endblock %}
+
+{% block loginactive %}
+      <li class="nav-item active">
+        {% endblock %}
+
+
+{% block contents %}
+
+<div class="container">
+
+    <form method="POST" class="form-register" style="color:white;">
+
+        {{ couponform.hidden_tag() }}
+
+        <center>
+        <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/letter-b-logo-design-template-bd51cd692b1ae2d1232e5e3ae629b8ee_screen.jpg?ts=1639751661" 
+        class="img_logo">
+    </center>
+
+        <h1 class="h3 mb-3 font-weight-normal" >
+            Redeem your coupon
+        </h1>
+       
+    {{ couponform.coupon_code.label() }}
+    {{ couponform.coupon_code(class="form-control", placeholder="Coupon Code") }}
+
+    <br>
+    <br>
+    <br>
+   
+
+    {{ couponform.submit(class='btn btn-lg btn-block btn-primary')}}
+
+    </form>
+
+</div>
+
+<style>
+    .img_logo{
+        width: 100px;
+        height: 100px;
+        border-radius: 100px;
+    }
+
+</style>
+
+{% endblock %}

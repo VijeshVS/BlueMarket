@@ -56,4 +56,8 @@ class Item(db.Model):
         return f"Item {self.name}"
     
     
+class CouponData(db.Model):
+    id = db.Column(db.Integer(),primary_key = True)
+    code = db.Column(db.String(length = 10),nullable = False)
+    money = db.Column(db.Integer(),nullable=True)
 
