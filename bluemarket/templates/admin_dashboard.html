@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+{% include 'includes/additem_modals.html' %}
+
+{% block title %}
+    Admin Dashboard
+{% endblock %}
+{% block contents %}
+
+<br>
+<h1 class="headerh1">Admin Dashboard</h1>
+
+<div class="firstlinebox">
+
+<div class="boxcontain">
+    <div class="box">
+        <img src="https://cdn-icons-png.flaticon.com/512/7298/7298311.png" style="width: 100%;height:100%;">
+    </div>
+    <div class="box" style="color:green">
+        <h3 style="margin-top: 25px;">{{sales}} $</h1>
+            <p>Sales</p>
+    </div>
+</div>
+
+<div class="boxcontain">
+    <div class="box">
+        <img src="https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/users5.png" style="width: 100%;height:100%;border-radius:20px">
+    </div>
+    <div class="box" style="color:green">
+        <h3 style="margin-top: 25px;">{{user_count}}</h1>
+            <p>Users</p>
+    </div>
+</div>
+
+<div class="boxcontain">
+    <div class="box">
+        <img src="https://cdn-icons-png.flaticon.com/512/2037/2037201.png" style="width: 100%;height:100%;border-radius:20px">
+    </div>
+    <div class="box" style="color:green">
+        <h3 style="margin-top: 25px;">{{networth}} $</h1>
+            <p>Networth</p>
+    </div>
+</div>
+
+<div class="boxcontain">
+    <div class="box">
+        <img src="https://cdn-icons-png.flaticon.com/512/1069/1069102.png" style="width: 90%;height:90%;">
+    </div>
+    <div class="box" style="color:green">
+        <h3 style="margin-top: 25px;">{{items_sold_count}}</h1>
+            <p>Items Sold</p>
+    </div>
+</div>
+
+<div class="boxcontain">
+    <div class="box">
+        <img src="https://cdn-icons-png.flaticon.com/512/2474/2474450.png" style="width: 90%;height:90%;">
+    </div>
+    <div class="box" style="color:green">
+        <h4 style="margin-top: 15px;">{{average_budget}} $</h1>
+            <p>Average Budget</p>
+    </div>
+</div>
+
+
+
+</div>
+
+
+
+
+
+    <br>
+    <br>
+    <br>
+    <div class="firstlinetablebox">
+    <div class="div-scroll">
+        <div class="headings"><h3 class="headingstxt">Users</h3></div>
+    <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Username</th>
+            <th scope="col">Email Address</th>
+            <th scope="col">Budget</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+          <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{user.username}}</td>
+            <td>{{user.email_address}}</td>
+            <td>{{user.budget}} $</td>
+          </tr>
+         {% endfor %}
+        </tbody>
+      </table> 
+    </div>
+    <div class="boxsection">
+
+        <h1 style="text-align: center;margin-top:10px">Operations</h1>
+        <br>
+        <br>
+            <button type="button" style="margin-left: 142px;" class="btn btn-outline-success"  data-toggle="modal" data-target="#Modal-AddItem" >List item in market</button>
+            <br>
+            <br>
+            <br>
+            <form method = 'POST'>
+                {{ generate_coupon_form.hidden_tag() }}
+                <input id="generate_coupon" name="generate_coupon" type="hidden" value="generate_coupon">
+                {{ generate_coupon_form.submit(class="btn btn-outline-success", style="margin-left: 142px;") }}
+            </form>
+       
+    </div>
+</div>
+
+    <br>
+    <br>
+    
+    <div class="firstlinetablebox">
+
+    
+    <div class="div-scroll">
+        <div class="headings"><h3 class="headingstxt">Coupons</h3></div>
+    <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Coupon Code</th>
+            <th scope="col">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for coupon in coupons %}
+          <tr>
+            <th scope="row">{{loop.index}}</th>
+            <td>{{coupon.code}}</td>
+            <td>{{coupon.money}} $</td>
+          </tr>
+         {% endfor %}
+        </tbody>
+      </table> 
+    </div>
+
+</div>
+
+
+    
+
+    <style>
+
+        .boxsection{
+            width: 450px;
+            border-radius: 10px;
+            margin-left: 30px;
+            height: 320px;
+            background-color: #323a3c;
+        }
+
+        .headingstxt{
+           margin-left: 200px;
+           margin-top: 5px;
+        }
+
+        .headings{
+            display: flex;
+            background-color: rgb(20, 28, 36);
+            border-radius: 10px 10px 0 0;
+            height: 50px;
+            width: 520px;
+        }
+
+        .firstlinetablebox{
+            display: flex;
+            width:95%;
+            height: 320px;
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+
+        .firstlinebox{
+            display: flex;
+            width:95%;
+            height: 100px;
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+
+        .boxcontain{
+            display: flex;
+            background-color: white;
+            margin-left: 20px;
+            margin-top: 20px;
+            height: 100px;
+            width: 200px;
+            border-radius: 20px;
+            justify-content: center;
+            align-items: center;
+            margin-left: 60px;
+        }
+
+        .box{
+            text-align: center; 
+            width:50%;
+            height:100px;
+            text-align: center;
+        }
+
+        .div-scroll, table{      
+            height: 300px;
+            width: 520px;
+            border-radius: 10px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            }
+
+        .headerh1 {
+            font-size: 45px;
+            font-weight: 600;
+            background-image: conic-gradient(#553c9a 30%, #ee4b2b 40%, #ee4b2b 70%, #00c2cb 80%, #553c9a);
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+            text-align: center;
+            animation: cursor 1s infinite step-end, typing 15s infinite steps(16);
+            white-space: nowrap;
+            overflow: hidden;
+            margin-left: 500px;
+            }    
+
+            @keyframes typing{
+                0%{ width: 0ch} /*Text is hidden*/
+                30%{ width: 16ch;} /*The enitre header will be typed out 1 character at a time*/
+                80%{ width: 16ch;} /*Text stays visible*/
+                90%{ width: 0ch;} /*Text is deleted*/
+                100%{ width: 0ch;} /*Text stays hidden*/
+              }
+
+           
+    </style>
+
+{% endblock %}

@@ -43,3 +43,11 @@ class SellItemForm(FlaskForm):
 class RedeemCouponForm(FlaskForm):
     coupon_code = PasswordField(label='Coupon Code: ')
     submit = SubmitField(label = 'Redeem')       
+
+class AddItem(FlaskForm):
+    itemname = StringField(label='Name: ')
+    itemprice = StringField(label ='Price: ')
+    submit = SubmitField(label = 'Add Item')     
+
+class GenerateCoupon(FlaskForm):    
+    submit = SubmitField(label= 'Generate Coupon !!') 
