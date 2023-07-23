@@ -186,24 +186,27 @@ def admin_page():
 
     # working of data analysis
     #sales
-    sales = 0
-    count = 0
-    for item in Item.query.filter_by(onwer = not None):
-        sales += item.price
-        count += 1  
-    
+    money=0
+
     #users count
     user_count = len(User.query.all())
 
     #networth
     networth = 0
-    
+    count = 0    
     for item in Item.query.filter_by(onwer = None):
         networth += item.price
-         
+        count += 1
+
+   
+    for item in Item.query.all():
+            money += item.price
+
+    sales = int(money) - int(networth)        
 
     #items sold
-    items_sold_count = count
+    total_items = len(Item.query.all())
+    items_sold_count = total_items - count
 
     #average budget
     totalbudget = 0

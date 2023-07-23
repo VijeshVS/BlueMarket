@@ -16,7 +16,7 @@
         <img src="https://cdn-icons-png.flaticon.com/512/7298/7298311.png" style="width: 100%;height:100%;">
     </div>
     <div class="box" style="color:green">
-        <h3 style="margin-top: 25px;">{{sales}} $</h1>
+        <h4 class="pulse-animation "  style="margin-top: 25px;">{{sales}} $</h1>
             <p>Sales</p>
     </div>
 </div>
@@ -26,7 +26,7 @@
         <img src="https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/512x512/users5.png" style="width: 100%;height:100%;border-radius:20px">
     </div>
     <div class="box" style="color:green">
-        <h3 style="margin-top: 25px;">{{user_count}}</h1>
+        <h3 class="glow-animation" style="margin-top: 25px;">{{user_count}}</h1>
             <p>Users</p>
     </div>
 </div>
@@ -36,7 +36,7 @@
         <img src="https://cdn-icons-png.flaticon.com/512/2037/2037201.png" style="width: 100%;height:100%;border-radius:20px">
     </div>
     <div class="box" style="color:green">
-        <h3 style="margin-top: 25px;">{{networth}} $</h1>
+        <h5 class="pulse-animation" style="margin-top: 25px;">{{networth}} $</h1>
             <p>Networth</p>
     </div>
 </div>
@@ -46,7 +46,7 @@
         <img src="https://cdn-icons-png.flaticon.com/512/1069/1069102.png" style="width: 90%;height:90%;">
     </div>
     <div class="box" style="color:green">
-        <h3 style="margin-top: 25px;">{{items_sold_count}}</h1>
+        <h3 class="glow-animation" style="margin-top: 25px;">{{items_sold_count}}</h1>
             <p>Items Sold</p>
     </div>
 </div>
@@ -56,7 +56,7 @@
         <img src="https://cdn-icons-png.flaticon.com/512/2474/2474450.png" style="width: 90%;height:90%;">
     </div>
     <div class="box" style="color:green">
-        <h4 style="margin-top: 15px;">{{average_budget}} $</h1>
+        <h4 class="fade-in-out" style="margin-top: 15px;">{{average_budget}} $</h1>
             <p>Average Budget</p>
     </div>
 </div>
@@ -149,6 +149,7 @@
 
     <style>
 
+
         .boxsection{
             width: 450px;
             border-radius: 10px;
@@ -235,8 +236,52 @@
                 90%{ width: 0ch;} /*Text is deleted*/
                 100%{ width: 0ch;} /*Text stays hidden*/
               }
+        
+              .fade-in-out {
+                opacity: 0; /* Start with 0 opacity, element invisible */
+                animation: fadeInOut 1.5s ease-in-out infinite; /* Apply the animation with 3 seconds duration, easing, and infinite loop */
+              }
+              
+              @keyframes fadeInOut {
+                0%, 100% {
+                  opacity: 0; /* At the beginning and end, set opacity to 0 */
+                }
+                50% {
+                  opacity: 1; /* At 50% mark, set opacity to 1, creating the fade-in effect */
+                }
+              }
 
-           
+              .pulse-animation {
+                animation: pulse 1.5s ease-in-out infinite;
+              }
+              
+              @keyframes pulse {
+                0% {
+                  transform: scale(1); /* Start with original size */
+                }
+                50% {
+                  transform: scale(1.1); /* Scale up by 10% at 50% mark */
+                }
+                100% {
+                  transform: scale(1); /* Return to original size */
+                }
+              }
+
+              .glow-animation {
+                font-size: 24px;
+                color: red; /* Set the initial color */
+                animation: glow 2s ease-in-out infinite; /* Apply the animation with 1-second duration, easing, and infinite loop */
+              }
+              
+              @keyframes glow {
+                0%, 100% {
+                  text-shadow: 0 0 10px yellow; /* At the beginning and end, apply the glow effect with a shadow */
+                }
+                50% {
+                  text-shadow: none; /* At 50% mark, remove the shadow to create the glowing effect */
+                }
+              }
+
     </style>
 
 {% endblock %}
